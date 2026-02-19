@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Nithin Netha Siramdasu — Full Stack Dev</title>
+
+<!-- WhatsApp / Social Preview -->
+<meta property="og:title" content="Nithin Netha Siramdasu — Full Stack Dev">
+<meta property="og:description" content="Computer Science undergrad building full-stack apps with Node.js, Python & React. Based in Hyderabad.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nithin Netha Siramdasu — Full Stack Dev">
+<meta name="description" content="Portfolio of Nithin Netha Siramdasu, Full Stack Developer from Hyderabad.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --accent: #00f5a0;
+    --accent2: #00b4d8;
+    --text: #e8e8f0;
+    --muted: #6b6b88;
+    --border: rgba(255,255,255,0.07);
+    --pad: clamp(1.25rem, 5vw, 4rem);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+  }
+
+  @media (hover: none) {
+    .cursor, .cursor-ring { display: none !important; }
+    body { cursor: auto; }
+  }
+
+  .cursor {
+    width: 12px; height: 12px; background: var(--accent); border-radius: 50%;
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px; border: 1px solid var(--accent); border-radius: 50%;
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; opacity: 0.5;
+  }
+
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 50px 50px; pointer-events: none; z-index: 0;
+  }
+
+  section { position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem var(--pad);
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,15,0.92); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--accent); letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a:active { color: var(--accent); }
+  @media (max-width: 400px) { .nav-links .hide-xs { display: none; } }
+
+  /* HERO */
+  #hero {
+    min-height: 100svh;
+    padding: calc(4.5rem + var(--pad)) var(--pad) var(--pad);
+    display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    #hero { flex-direction: row; align-items: center; padding-top: 7rem; }
+    .hero-left { flex: 1; }
+    .hero-right { flex: 0 0 300px; display: flex !important; }
+  }
+  .hero-right { display: none; justify-content: center; align-items: center; opacity: 0; animation: fadeIn 1s forwards 1s; }
+
+  .hero-tag {
+    display: inline-block; padding: 0.35rem 0.85rem;
+    border: 1px solid var(--accent); color: var(--accent);
+    font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s forwards 0.3s;
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif; font-size: clamp(2.6rem, 10vw, 5.5rem);
+    font-weight: 800; line-height: 0.95; letter-spacing: -0.03em;
+    opacity: 0; animation: fadeUp 0.8s forwards 0.5s;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-role { margin-top: 1.25rem; font-size: clamp(0.6rem, 2.5vw, 0.8rem); color: var(--muted); letter-spacing: 0.08em; opacity: 0; animation: fadeUp 0.8s forwards 0.7s; }
+  .hero-desc { margin-top: 1.5rem; font-family: 'Syne', sans-serif; font-size: clamp(0.85rem, 2.5vw, 1rem); line-height: 1.7; color: #a0a0bc; max-width: 480px; opacity: 0; animation: fadeUp 0.8s forwards 0.9s; }
+  .hero-cta { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.75rem; opacity: 0; animation: fadeUp 0.8s forwards 1.1s; }
+
+  .btn {
+    padding: 0.8rem 1.75rem; font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; display: inline-block; transition: all 0.3s; border: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary { background: var(--accent); color: #0a0a0f; font-weight: 700; }
+  .btn-primary:hover, .btn-primary:active { background: #00d488; transform: translateY(-2px); }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover, .btn-outline:active { border-color: var(--accent); color: var(--accent); }
+
+  .hero-visual { width: 260px; height: 260px; position: relative; }
+  .hex-ring { position: absolute; inset: 0; border: 1px solid rgba(0,245,160,0.2); border-radius: 50%; animation: spin 20s linear infinite; }
+  .hex-ring::before { content: ''; position: absolute; top: -4px; left: 50%; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; transform: translateX(-50%); }
+  .hex-ring-2 { position: absolute; inset: 25px; border: 1px dashed rgba(0,180,216,0.3); border-radius: 50%; animation: spin 15s linear infinite reverse; }
+  .hero-center-box { position: absolute; inset: 60px; background: var(--card); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; }
+  .hero-initials { font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 800; color: var(--accent); line-height: 1; }
+  .hero-center-role { font-size: 0.52rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+
+  /* STATS */
+  .stats-bar {
+    padding: 2rem var(--pad); position: relative; z-index: 1;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+    background: var(--surface);
+  }
+  @media (min-width: 600px) { .stats-bar { grid-template-columns: repeat(4, 1fr); } }
+  .stat-item { text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; color: var(--accent); display: block; }
+  .stat-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+
+  /* SECTION HEADER */
+  .section-header { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2.5rem; }
+  .section-num { font-size: 0.6rem; color: var(--accent); letter-spacing: 0.2em; white-space: nowrap; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* SKILLS */
+  #skills { padding: 4rem var(--pad); }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (min-width: 700px) { .skills-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .skill-card { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+  .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+  .skill-card:hover { border-color: rgba(0,245,160,0.3); transform: translateY(-3px); }
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-category { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .skill-name { font-family: 'Syne', sans-serif; font-size: clamp(0.9rem, 2.5vw, 1.2rem); font-weight: 700; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .skill-tag { padding: 0.2rem 0.6rem; background: rgba(0,245,160,0.08); border: 1px solid rgba(0,245,160,0.15); font-size: 0.58rem; color: var(--accent); }
+
+  /* PROJECTS */
+  #projects { padding: 4rem var(--pad); background: var(--surface); }
+  .projects-grid { display: grid; gap: 1rem; }
+  @media (min-width: 700px) { .projects-grid { grid-template-columns: 1fr 1fr; } }
+
+  .project-card { background: var(--card); border: 1px solid var(--border); padding: 1.75rem; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+  .project-card.featured { grid-column: 1 / -1; }
+  .project-card:hover { transform: translateY(-3px); border-color: rgba(0,180,216,0.3); }
+
+  .featured-inner { display: grid; gap: 1.5rem; }
+  @media (min-width: 700px) { .featured-inner { grid-template-columns: 1fr 1fr; align-items: center; } }
+
+  .project-visual {
+    height: 130px; min-height: 130px;
+    background: linear-gradient(135deg, rgba(0,245,160,0.05), rgba(0,180,216,0.05));
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 7vw, 3.5rem);
+    font-weight: 800; color: rgba(0,245,160,0.12); text-align: center; line-height: 1.1;
+  }
+  @media (min-width: 700px) { .project-visual { height: 100%; } }
+
+  .project-num { font-size: 0.58rem; color: var(--muted); letter-spacing: 0.2em; margin-bottom: 1rem; }
+  .project-title { font-family: 'Syne', sans-serif; font-size: clamp(1.3rem, 4vw, 1.7rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .project-desc { font-size: 0.78rem; line-height: 1.8; color: #8888a8; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .stack-tag { padding: 0.22rem 0.6rem; background: rgba(0,180,216,0.08); border: 1px solid rgba(0,180,216,0.2); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--accent2); text-transform: uppercase; }
+  .project-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; color: var(--accent); text-decoration: none; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; transition: gap 0.3s; -webkit-tap-highlight-color: transparent; }
+  .project-link:hover { gap: 0.8rem; }
+
+  /* EXPERIENCE */
+  #experience { padding: 4rem var(--pad); }
+  .exp-card { background: var(--card); border: 1px solid var(--border); padding: 2rem; display: grid; gap: 1.5rem; transition: border-color 0.3s; }
+  @media (min-width: 700px) { .exp-card { grid-template-columns: 160px 1fr; gap: 2.5rem; } }
+  .exp-card:hover { border-color: rgba(0,245,160,0.3); }
+  .exp-date { font-size: 0.7rem; color: var(--muted); line-height: 1.6; }
+  .exp-company { font-family: 'Syne', sans-serif; font-size: 0.8rem; color: var(--accent); font-weight: 700; margin-top: 0.5rem; }
+  .exp-role { font-family: 'Syne', sans-serif; font-size: clamp(1.2rem, 4vw, 1.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .exp-desc { font-size: 0.78rem; line-height: 1.9; color: #8888a8; }
+
+  /* EDUCATION */
+  #education { padding: 4rem var(--pad); background: var(--surface); }
+  .edu-card { background: var(--card); border: 1px solid var(--border); padding: 2rem; display: grid; gap: 1.5rem; align-items: center; }
+  @media (min-width: 600px) { .edu-card { grid-template-columns: auto 1fr; gap: 2.5rem; } }
+  .edu-gpa { text-align: center; }
+  .gpa-num { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 8vw, 4rem); font-weight: 800; color: var(--accent); line-height: 1; display: block; }
+  .gpa-label { font-size: 0.58rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 0.25rem; }
+  .edu-degree { font-family: 'Syne', sans-serif; font-size: clamp(1.2rem, 4vw, 1.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+  .edu-school { color: var(--accent); font-size: 0.78rem; margin-bottom: 0.4rem; }
+  .edu-duration { color: var(--muted); font-size: 0.68rem; }
+
+  /* CONTACT */
+  #contact { padding: 4rem var(--pad); text-align: center; }
+  .contact-title { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 8vw, 4.5rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1; }
+  .contact-title span { color: var(--accent); }
+  .contact-sub { color: var(--muted); font-size: clamp(0.75rem, 2.5vw, 0.85rem); max-width: 480px; margin: 0 auto; line-height: 1.8; }
+  .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.5rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.85rem 1.4rem;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.05em;
+    transition: all 0.3s; -webkit-tap-highlight-color: transparent; white-space: nowrap;
+  }
+  .contact-link:hover, .contact-link:active { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { padding: 1.75rem var(--pad); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; position: relative; z-index: 1; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    .reveal, .hero-tag, .hero-name, .hero-role, .hero-desc, .hero-cta, .hero-right { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">NNS//</div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience" class="hide-xs">Exp</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">// Available for opportunities</div>
+    <h1 class="hero-name">Nithin<br><span>Netha</span><br>Siramdasu</h1>
+    <p class="hero-role">FULL STACK DEVELOPER — HYDERABAD, IN</p>
+    <p class="hero-desc">CS undergrad building full-stack apps with Node.js, Python & React. Focused on scalable, user-centered products and solid backend fundamentals.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hex-ring"></div>
+      <div class="hex-ring-2"></div>
+      <div class="hero-center-box">
+        <div class="hero-initials">NNS</div>
+        <div class="hero-center-role">Full Stack Dev</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item reveal"><span class="stat-num">8.7</span><div class="stat-label">CGPA</div></div>
+  <div class="stat-item reveal" style="transition-delay:.1s"><span class="stat-num">4+</span><div class="stat-label">Projects</div></div>
+  <div class="stat-item reveal" style="transition-delay:.2s"><span class="stat-num">8+</span><div class="stat-label">Technologies</div></div>
+  <div class="stat-item reveal" style="transition-delay:.3s"><span class="stat-num">2028</span><div class="stat-label">Graduating</div></div>
+</div>
+
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-category">Frontend</div>
+      <div class="skill-name">Web Tech</div>
+      <div class="skill-tags"><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span><span class="skill-tag">React</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.1s">
+      <div class="skill-category">Backend</div>
+      <div class="skill-name">Server & APIs</div>
+      <div class="skill-tags"><span class="skill-tag">Node.js</span><span class="skill-tag">Express</span><span class="skill-tag">Python</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.2s">
+      <div class="skill-category">Database</div>
+      <div class="skill-name">Data Storage</div>
+      <div class="skill-tags"><span class="skill-tag">MySQL</span><span class="skill-tag">MongoDB</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.3s">
+      <div class="skill-category">AI & ML</div>
+      <div class="skill-name">Intelligence</div>
+      <div class="skill-tags"><span class="skill-tag">Prompt Eng.</span><span class="skill-tag">Random Forest</span><span class="skill-tag">Lin. Regression</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.4s">
+      <div class="skill-category">Productivity</div>
+      <div class="skill-name">Office & Ops</div>
+      <div class="skill-tags"><span class="skill-tag">Excel</span><span class="skill-tag">PowerPoint</span><span class="skill-tag">Drive</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.5s">
+      <div class="skill-category">Creative</div>
+      <div class="skill-name">Content Strategy</div>
+      <div class="skill-tags"><span class="skill-tag">Social Media</span><span class="skill-tag">Scripting</span><span class="skill-tag">Branding</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card featured reveal">
+      <div class="featured-inner">
+        <div>
+          <div class="project-num">01 / FEATURED</div>
+          <h3 class="project-title">GramaAI</h3>
+          <p class="project-desc">Full-stack healthcare app simplifying doctor appointment scheduling. Built both the user interface and doctor portal with responsive design and efficient data handling.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Node.js</span><span class="stack-tag">MySQL</span><span class="stack-tag">AI Tools</span>
+          </div>
+          <a href="https://readdy.cc/preview/bd81743f-3f01-469a-a610-fda0d90f967d/3164061" target="_blank" rel="noopener" class="project-link">Live Demo →</a>
+        </div>
+        <div class="project-visual">GRAMA<br>AI</div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:.1s">
+      <div class="project-num">02</div>
+      <h3 class="project-title">Career & Co</h3>
+      <p class="project-desc">Full-stack platform for AI-generated resumes and portfolio websites. A mini professional network for devs to connect and collaborate.</p>
+      <div class="project-stack">
+        <span class="stack-tag">React</span><span class="stack-tag">Node.js</span><span class="stack-tag">Express</span><span class="stack-tag">MongoDB</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:.2s">
+      <div class="project-num">03</div>
+      <h3 class="project-title">AI Finance Advisor</h3>
+      <p class="project-desc">ML-powered finance system predicting spending patterns. +15% recommendation accuracy and +20% user satisfaction vs static tools.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span><span class="stack-tag">JavaScript</span><span class="stack-tag">HTML/CSS</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:.3s">
+      <div class="project-num">04</div>
+      <h3 class="project-title">TripNest</h3>
+      <p class="project-desc">Travel website with semantic HTML5 structure and responsive CSS3 styling, compatible across all devices.</p>
+      <div class="project-stack">
+        <span class="stack-tag">HTML5</span><span class="stack-tag">CSS3</span>
+      </div>
+      <a href="https://tripnest.niat.tech" target="_blank" rel="noopener" class="project-link">Live Demo →</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-card reveal">
+    <div>
+      <div class="exp-date">Nov 2024 — Jan 2025<br>Hyderabad, IN</div>
+      <div class="exp-company">Freelance</div>
+    </div>
+    <div>
+      <h3 class="exp-role">Social Media Manager</h3>
+      <p class="exp-desc">Developed engaging video scripts and content ideas aligned with brand voice and audience trends. Collaborated with clients to improve content structure, storytelling, and audience engagement.</p>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-card reveal">
+    <div class="edu-gpa">
+      <span class="gpa-num">8.7</span>
+      <div class="gpa-label">CGPA</div>
+    </div>
+    <div>
+      <h3 class="edu-degree">B.Sc. Computer Science</h3>
+      <div class="edu-school">NxtWave Institute of Advanced Technologies</div>
+      <div class="edu-duration">Aug 2024 — Aug 2028 · Hyderabad, India</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header reveal" style="justify-content:center">
+    <span class="section-num">05</span>
+    <div class="section-line" style="max-width:60px"></div>
+  </div>
+  <h2 class="contact-title reveal">Let's Build<br><span>Something.</span></h2>
+  <p class="contact-sub reveal">Open to internships, collaborations, and exciting projects. Drop a message and let's talk tech.</p>
+  <div class="contact-links">
+    <a href="mailto:nithinnetha2006@gmail.com" class="contact-link reveal">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email Me
+    </a>
+    <a href="tel:07989936884" class="contact-link reveal" style="transition-delay:.1s">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.88 12 19.79 19.79 0 0 1 1.92 3.29 2 2 0 0 1 3.9 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call Me
+    </a>
+    <a href="https://www.linkedin.com/in/nithin-netha-a604a1308/" target="_blank" rel="noopener" class="contact-link reveal" style="transition-delay:.2s">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/nithinnetha2006" target="_blank" rel="noopener" class="contact-link reveal" style="transition-delay:.3s">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Nithin Netha Siramdasu</span>
+  <span>FULL STACK DEV · HYDERABAD</span>
+</footer>
+
+<script>
+  // Custom cursor — desktop only
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.body.style.cursor = 'none';
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.transform = `translate(${mx-6}px,${my-6}px)`;
+    });
+    (function loop() {
+      rx += (mx - rx - 18) * 0.12;
+      ry += (my - ry - 18) * 0.12;
+      ring.style.transform = `translate(${rx}px,${ry}px)`;
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // WhatsApp in-app browser → redirect to Chrome on Android
+  (function() {
+    const ua = navigator.userAgent || '';
+    if (/WhatsApp/i.test(ua) && /Android/i.test(ua)) {
+      const url = window.location.href;
+      window.location.href = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end';
+    }
+  })();
+</script>
+</body>
+</html>
